@@ -3,7 +3,7 @@ import os
 import random
 import time
 
-BALL = '⏺'
+BALLS = ['🔔','🏮','🍊','✨','🔔','❄️']
 COLOR = {
     'blue': '\033[94m',
     'yellow': '\033[93m',
@@ -13,7 +13,7 @@ COLOR = {
     'white': '\033[97m',
     'red': '\033[91m'
 }
-STAR = '★'
+STAR = '🌟'
 
 
 def random_change_char(string, value):
@@ -21,11 +21,11 @@ def random_change_char(string, value):
     string = list(string)
     for idx in indexes:
         if string[idx] != ' ' and string[idx] == '_':
-            string[idx] = BALL
+            string[idx] = random.choice(BALLS)
     return ''.join(string)
 
 
-def tree(height=13, screen_width=80):
+def tree(height=30, screen_width=200):
     star = (STAR, 3*STAR)
     if height % 2 != 0:
         height += 1
@@ -57,10 +57,11 @@ def colored_stars_balls(tree):
     for idx, _ in enumerate(tree):
         string = list(tree[idx])
         for pos, _ in enumerate(string):
+            random_ball = random.choice(BALLS)
             if string[pos] == STAR:
                 string[pos] = ''.join([COLOR['yellow'], STAR, '\033[0m'])
-            elif string[pos] == BALL:
-                string[pos] = ''.join([random.choice(list(COLOR.values())), BALL, '\033[0m'])
+            elif string[pos] == random_ball:
+                string[pos] = ''.join([random.choice(list(COLOR.values())), random_ball, '\033[0m'])
         tree[idx] = ''.join(string)
     return tree
 
